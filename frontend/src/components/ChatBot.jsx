@@ -55,19 +55,35 @@ const ChatBot = () => {
 
   return (
     <div className="chat-container">
+        {/* <div className="chat-header">
+          <h1>AI Assistant</h1>
+        </div> */}
       <div className="chat-messages">
-        {messages.map((message, index) => (
-          <div key={index} className={`message ${message.type}`}>
-            <span className="message-prefix">
-              {message.type === 'user' ? '👤 You: ' : '🤖 Bot: '}
-            </span>
-            {message.content}
+        {messages.length === 0 ? (
+          <div className="welcome-message">
+            <h2>👋 Welcome!</h2>
+            <p>How can I help you today?</p>
           </div>
-        ))}
+        ) : (
+          messages.map((message, index) => (
+            <div key={index} className={`message ${message.type}`}>
+              <div className="message-content">
+                <span className="message-prefix">
+                  {message.type === 'user' ? '👤 You: ' : '🤖 Assistant: '}
+                </span>
+                <span className="message-text">{message.content}</span>
+              </div>
+            </div>
+          ))
+        )}
         {isLoading && (
           <div className="message bot">
-            <span className="message-prefix">🤖 Bot: </span>
-            <span className="typing-indicator">Thinking...</span>
+            <div className="message-content">
+              <span className="message-prefix">🤖 Assistant: </span>
+              <span className="typing-indicator">
+                <span>.</span><span>.</span><span>.</span>
+              </span>
+            </div>
           </div>
         )}
         <div ref={messagesEndRef} />
@@ -77,10 +93,11 @@ const ChatBot = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
+          placeholder="Type your message here..."
           disabled={isLoading}
+          className="chat-input"
         />
-        <button type="submit" disabled={isLoading}>
+        <button type="submit" disabled={isLoading} className="chat-submit">
           {isLoading ? 'Sending...' : 'Send'}
         </button>
       </form>

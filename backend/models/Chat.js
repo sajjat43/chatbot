@@ -4,7 +4,7 @@ const chatSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ['user', 'assistant']
+        enum: ['system', 'user', 'assistant']
     },
     content: {
         type: String,
@@ -13,7 +13,16 @@ const chatSchema = new mongoose.Schema({
     timestamp: {
         type: Date,
         default: Date.now
+    },
+    metadata: {
+        type: Map,
+        of: mongoose.Schema.Types.Mixed,
+        default: {}
     }
 });
+
+// Add indexes for better query performance
+chatSchema.index({ timestamp: -1 });
+chatSchema.index({ role: 1 });
 
 module.exports = mongoose.model('Chat', chatSchema); 
