@@ -144,3 +144,37 @@ button:focus-visible {
   background-color: #404040;
   cursor: not-allowed;
 }
+
+.message-prefix {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.typing-indicator {
+  display: inline-block;
+  animation: ellipsis 1.4s infinite;
+}
+
+@keyframes ellipsis {
+  0% { content: "Thinking"; }
+  25% { content: "Thinking."; }
+  50% { content: "Thinking.."; }
+  75% { content: "Thinking..."; }
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #343541;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #565869;
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #666778;
+}
